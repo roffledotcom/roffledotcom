@@ -1,3 +1,4 @@
+import ForumContentActions from "../../components/posts/ForumContentActions";
 import {
   useEffect,
   useState,
@@ -1243,7 +1244,9 @@ function ForumPost({
   canDelete,
   onDelete,
   original,
+  contentId, contentKind, accessRole, loggedIn, onChanged, threadTitle,
 }: {
+  contentId: string; contentKind: "thread" | "reply"; accessRole: string | null; loggedIn: boolean; onChanged: () => void; threadTitle?: string;
   body: string | null;
   gifUrl?: string | null;
   authorName: string;
@@ -1304,6 +1307,7 @@ function ForumPost({
           )}
         </header>
 
+        <ForumContentActions kind={contentKind} id={contentId} title={threadTitle} body={body} role={accessRole} loggedIn={loggedIn} onChanged={onChanged} />
         {body && (
           <div className="forum-post-body">
             {body}
@@ -1505,8 +1509,6 @@ function ThreadPage({
     Boolean(
       session &&
       (
-        session.user.id ===
-          thread.user_id ||
         isStaff
       )
     );
@@ -1723,7 +1725,7 @@ function ThreadPage({
         </div>
 
         <div className="forum-thread-actions">
-          {isStaff && (
+          {accessRole === "admin" && (
             <>
               <button
                 className={
@@ -1799,6 +1801,7 @@ function ThreadPage({
 
       <section className="forum-post-stack">
         <ForumPost
+          contentId={thread.id} contentKind="thread" accessRole={accessRole} loggedIn={Boolean(session)} onChanged={() => void load()} threadTitle={thread.title}
           original
           body={
             thread.body
@@ -1835,14 +1838,13 @@ function ThreadPage({
               Boolean(
                 session &&
                 (
-                  session.user.id ===
-                    reply.user_id ||
                   isStaff
                 )
               );
 
             return (
               <ForumPost
+                contentId={reply.id} contentKind="reply" accessRole={accessRole} loggedIn={Boolean(session)} onChanged={() => void load()}
                 key={
                   reply.id
                 }
@@ -2054,6 +2056,8 @@ function ThreadPage({
 
 
 export default function Forum() {
+  const [forumSettings, setForumSettings] = useState<{title:string;description:string;allow_threads:boolean;allow_replies:boolean}|null>(null);
+  useEffect(() => { let mounted=true; void supabase.from("forum_settings").select("*").single().then(({data}) => {if(mounted)setForumSettings(data);});return()=>{mounted=false;};}, []);
   const [
     postDialogOpen,
     setPostDialogOpen,
@@ -2164,8 +2168,7 @@ export default function Forum() {
         ) => {
           if (mounted) {
             setAccessRole(
-              access?.role ??
-              null
+              access?.account_status === "active" ? access.role : null
             );
           }
         }
@@ -2340,6 +2343,7 @@ export default function Forum() {
           void signOut();
         }}
       />
+      {forumSettings && <section className="forum-settings-banner"><h1>{forumSettings.title}</h1><p>{forumSettings.description}</p>{!forumSettings.allow_threads && <p>New threads are temporarily paused.</p>}{!forumSettings.allow_replies && <p>Replies are temporarily paused.</p>}</section>}
 
       <main className="forum-shell">
         {content}

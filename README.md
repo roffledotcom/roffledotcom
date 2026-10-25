@@ -1,3 +1,7 @@
+## Latest update: R2 uploads and forum moderation
+
+Start with **SETUP_R2_AND_FORUM.txt**. Run only the new `20261025000100_r2_forum_moderation.sql` migration against your existing new Roffle project. Historical transfer instructions below predate this update.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.

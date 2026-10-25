@@ -1562,3 +1562,11 @@ div {
   background:
     #f8f8f5;
 }
+
+.forum-inline-actions {display:flex;flex-wrap:wrap;gap:8px;padding:12px 0;font-size:14px;}
+.forum-inline-actions button {font:inherit;padding:8px 12px;cursor:pointer;}
+.forum-inline-actions form {flex-basis:100%;display:grid;gap:10px;}
+.forum-inline-actions label {display:grid;gap:6px;}
+.forum-inline-actions textarea,.forum-inline-actions input {font-size:16px;padding:10px;width:100%;box-sizing:border-box;}
+.forum-inline-actions textarea {min-height:120px;}
+.forum-settings-banner {max-width:1200px;margin:24px auto;padding:0 24px;}

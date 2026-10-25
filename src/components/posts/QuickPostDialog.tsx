@@ -1,3 +1,4 @@
+import R2UploadDialog from "./R2UploadDialog";
 import {
   useEffect,
   useMemo,
@@ -71,6 +72,7 @@ export default function QuickPostDialog({
   onClose,
   onPosted,
 }: Props) {
+  const [r2Open, setR2Open] = useState(false);
   const [
     postType,
     setPostType,
@@ -867,6 +869,8 @@ export default function QuickPostDialog({
     );
 
 
+  if (r2Open) return <R2UploadDialog onClose={() => setR2Open(false)} onPosted={(post) => { setR2Open(false); onPosted(post); onClose(); }} />;
+
   return (
     <div
       className="quick-post-backdrop"
@@ -914,6 +918,7 @@ export default function QuickPostDialog({
         </header>
 
         <div className="quick-post-tabs">
+          <button type="button" onClick={() => setR2Open(true)}>Upload MP4 / WebM / WebP</button>
           <button
             type="button"
             className={

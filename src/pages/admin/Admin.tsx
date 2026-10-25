@@ -1,3 +1,4 @@
+import ForumAdmin from "../../components/admin/ForumAdmin";
 import {
   useEffect,
   useState,
@@ -45,7 +46,9 @@ type Tab =
   | "rejected"
   | "taxonomy"
   | "blog"
-  | "users";
+  | "users"
+  | "forum-settings"
+  | "forum-flags";
 
 
 export default function Admin() {
@@ -389,9 +392,13 @@ export default function Admin() {
               Users
             </button>
           )}
+          <button className={tab === "forum-flags" ? "active" : ""} onClick={() => setTab("forum-flags")}>Flagged forum posts</button>
+          {access.role === "admin" && <button className={tab === "forum-settings" ? "active" : ""} onClick={() => setTab("forum-settings")}>Forum settings</button>}
         </aside>
 
         <main className="admin-content">
+          {tab === "forum-flags" && <ForumAdmin role={access.role} />}
+          {tab === "forum-settings" && access.role === "admin" && <ForumAdmin role={access.role} settingsOnly />}
           {error && (
             <div className="admin-error">
               {error}

@@ -39,7 +39,8 @@ export type PostRecord = {
   id: string;
   user_id: string;
 
-  post_type: QuickPostType;
+  post_type: QuickPostType | "upload_video";
+  media_asset_id?: string | null;
 
   title: string | null;
   body: string | null;
@@ -169,7 +170,8 @@ export type EditPostInput = {
   postId: string;
 
   postType:
-    QuickPostType;
+    QuickPostType | "upload_video";
+  mediaAssetId?: string | null;
 
   title?: string;
   body?: string;

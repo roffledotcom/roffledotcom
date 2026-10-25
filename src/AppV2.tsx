@@ -1,3 +1,4 @@
+import UploadedMedia from "./components/posts/UploadedMedia";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   type Session,
@@ -306,8 +307,7 @@ function mapPostRecord(
   }
 
   if (
-    post.post_type ===
-    "image"
+    (post.post_type === "image" || post.post_type === "upload_video")
   ) {
     return {
       id:
@@ -348,8 +348,7 @@ function mapPostRecord(
         post.liked_by_me ??
         false,
 
-      type:
-        "image",
+      type: post.post_type === "upload_video" ? "video" : "image",
 
       tag:
         post.category
@@ -502,6 +501,7 @@ function MediaStage({
 }: {
   post: Post;
 }) {
+  if (post.sourceRecord.media_asset_id) return <div className="photo-stage"><UploadedMedia postId={String(post.id)} video={post.sourceRecord.post_type === "upload_video"} title={post.title} /></div>;
   if (post.type === "short") {
     const hasRealVideo =
       post.youtubeId &&

@@ -1,3 +1,4 @@
+import UploadedMedia from "./UploadedMedia";
 import {
   useEffect,
   useMemo,
@@ -549,7 +550,7 @@ export default function EditPostDialog({
     };
 
 
-  const useYouTubeTitle =
+  const applyYouTubeTitle =
     async () => {
       if (!parsedYouTube) {
         return;
@@ -612,6 +613,7 @@ export default function EditPostDialog({
 
               postType:
                 post.post_type,
+              mediaAssetId: post.media_asset_id,
 
               title,
 
@@ -720,7 +722,7 @@ export default function EditPostDialog({
             )
           : Boolean(
               replacementImage ||
-              post.image_url
+              post.image_url || post.media_asset_id
             )
     );
 
@@ -780,7 +782,7 @@ export default function EditPostDialog({
             : post.post_type ===
                 "image"
               ? "Image"
-              : "Text"}
+              : post.post_type === "upload_video" ? "Uploaded video" : "Text"}
         </div>
 
         <div className="quick-post-body">
@@ -844,7 +846,7 @@ export default function EditPostDialog({
                       youtubeTitleLoading
                     }
                     onClick={() => {
-                      void useYouTubeTitle();
+                      void applyYouTubeTitle();
                     }}
                   >
                     {youtubeTitleLoading
@@ -888,7 +890,8 @@ export default function EditPostDialog({
             </label>
           )}
 
-          {post.post_type ===
+          {post.media_asset_id && <UploadedMedia postId={post.id} video={post.post_type === "upload_video"} title={post.title || "Uploaded media"} />}
+          {!post.media_asset_id && post.post_type ===
             "image" && (
             <>
               <div className="edit-post-current-image">

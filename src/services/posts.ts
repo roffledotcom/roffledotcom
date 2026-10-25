@@ -1078,7 +1078,7 @@ export async function updatePost(
   if (
     input.postType ===
       "image" &&
-    input.replacementImage
+    input.replacementImage && !input.mediaAssetId
   ) {
     const uploaded =
       await uploadPostImage(
@@ -1169,7 +1169,7 @@ export async function updatePost(
   if (
     input.postType ===
       "image" &&
-    !imageUrl
+    !imageUrl && !input.mediaAssetId
   ) {
     throw new Error(
       "The image post needs an image."
@@ -1197,7 +1197,7 @@ export async function updatePost(
   const {
     error,
   } =
-    await supabase.rpc(
+    await (input.mediaAssetId ? supabase.rpc("edit_uploaded_post", {target_post: input.postId, new_title: input.title?.trim() || null, new_body: input.body?.trim() || null, new_category: input.categoryId, new_tags: input.tagIds}) : supabase.rpc(
       "edit_post",
       {
         target_post:
@@ -1241,7 +1241,7 @@ export async function updatePost(
           gifFields
             .gif_preview_url,
       }
-    );
+    ));
 
 
   if (error) {

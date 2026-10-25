@@ -4966,3 +4966,7 @@ iframe {
       auto !important;
   }
 }
+
+/* White margins around narrower images and R2 media. */
+.photo-stage, .magazine-grid .post-media > .photo-stage, .front-page-pinned-grid .post-media > .photo-stage {background:#fff;}
+.r2-play {display:block;min-height:60px;margin:24px auto;padding:14px 24px;font-size:16px;border-radius:8px;cursor:pointer;}

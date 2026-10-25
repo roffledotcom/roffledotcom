@@ -1,0 +1,69 @@
+ROFFLE: R2 media uploads + forum administration
+Based on roffle(10).zip. This is a complete updated source package.
+
+1. DATABASE, FIRST
+Open the NEW Roffle Supabase project (xkkkfviifvxfrzvehogc), SQL Editor.
+Run the entire migrations/20261025000100_r2_forum_moderation.sql file ONCE.
+This migration requires the application tables/functions already created during your initial setup. Do not rerun all historical migrations or the tests/fixtures baseline against production.
+This changes schema and permissions, not existing posts or users. It runs in a transaction. Forum delete/edit is staff-only per your final instruction: ordinary users can flag but cannot edit/delete, including their own content.
+
+2. VERCEL ENVIRONMENT VARIABLES
+Keep your existing values:
+R2_ACCESS_KEY_ID
+R2_SECRET_ACCESS_KEY
+R2_ENDPOINT (S3 endpoint, https://ACCOUNT_ID.r2.cloudflarestorage.com; no bucket suffix)
+R2_BUCKET_NAME=roffledotcom
+VITE_SUPABASE_URL
+VITE_SUPABASE_PUBLISHABLE_KEY
+
+ADD THIS SERVER-ONLY VALUE:
+SUPABASE_SERVICE_ROLE_KEY
+Get the legacy service_role key from the NEW Supabase project's API Keys settings. Store it only in Vercel's server environment, never with a VITE_ prefix, in frontend code, Git, or chat. The backend needs it to manage private media upload records after validating the user's normal Supabase session.
+Enable these variables for the deployment environments you use, then redeploy. VITE variables are intentionally browser-public; R2 secrets and the service-role key must never use VITE_.
+
+3. CLOUDFLARE R2 CORS
+Bucket roffledotcom -> Settings -> CORS policy.
+Paste the contents of R2_CORS.json. These origins include the current Vercel project URL, the eventual production domain and local Vite development URL. Add any different exact preview origin you need; don't use a wildcard for all websites.
+Keep the bucket private. Playback uses temporary signed URLs, after checking the visitor's post permissions. No public bucket URL/custom media domain is required.
+
+4. STAGING CLEANUP
+In the bucket's Object lifecycle settings, add a rule deleting objects with prefix staging/ after one day. Uploads are copied to their final private key after verification; staging objects should not be retained indefinitely.
+Deleted main-feed posts currently leave their media files retained in R2. Automatic final-file garbage collection is not part of this update. They still count toward the app's 8 GiB safety budget; review retained assets before increasing it.
+The 8 GiB budget and 20 uploads per account per day are application limits, not a Cloudflare billing cap. Account for storage from any other use of this bucket separately.
+
+5. INSTALL AND DEPLOY
+Copy these files over your local Roffle project, preserving your private environment files.
+Run npm install, npm test, npm run build, then commit and push to GitHub.
+The updated vercel.json preserves /api routes instead of rewriting them to the SPA.
+No deployment was performed from this package. npm run dev serves the frontend only; use Vercel dev or a deployed preview for /api/media integration testing.
+
+6. MEDIA FEATURES
+Open Quick Post -> Upload MP4 / WebM / WebP.
+MP4 and WebM videos: max 50 MiB. WebP images: max 10 MiB.
+Title and active post category required. Optional caption, max 500 characters.
+Upload progress and retry for post creation after upload. Private playback follows existing pending/approved post visibility rules.
+Video downloads start when Play video is clicked; playback has native browser controls. No automatic transcoding or codec conversion: some videos may need conversion to a browser-supported codec before upload.
+Existing YouTube, image/GIF, comments and moderation flows remain available.
+Media metadata can be edited without replacing the underlying R2 file. Replacing an uploaded R2 file requires a new post in this version.
+
+7. FORUM PERMISSIONS
+Logged-in active users: flag threads and replies (including their own, per request).
+Moderators: flag, delete any thread/reply, review/dismiss forum reports. Cannot edit content, manage categories, or change forum settings/pin/lock controls.
+Admins: all moderation actions plus edit any thread/reply, manage categories, change forum title/description, pause thread/reply creation, pin/lock threads.
+Visitors: read; no flag/edit/delete.
+Controls are in the forum. Admin -> Flagged forum posts contains the review queue for admins/mods. Admin -> Forum settings is admin-only.
+Reports retain a content snapshot and reason. Deleting reported content resolves its open reports while retaining the snapshot. Disabling a category hides its category listing; existing thread links remain readable. Categories with threads cannot be deleted until empty.
+
+8. VERIFY AFTER DEPLOYMENT
+- Admin: forum settings visible; edit/delete buttons visible on every thread and reply.
+- Moderator: delete/flag visible; edit/settings unavailable.
+- Ordinary account: flag visible; edit/delete unavailable even on own posts.
+- Guest: flag/edit/delete unavailable.
+- Flag one thread and one reply; review in admin; dismiss or delete.
+- Upload a small MP4, WebM and WebP. Check playback on desktop and mobile.
+- Confirm a pending upload is not viewable in an anonymous browser; approve and retry.
+- Pause threads/replies in admin; verify ordinary users cannot post.
+
+VALIDATION
+Production frontend build, source lint (passed with warnings), upload policy/API unit tests, and a PGlite PostgreSQL schema/authorization integration test were run locally. API tests mock Supabase/R2 signing; they do not contact your accounts. Tests use an isolated fixture database, never your production project.
+Browser verification could not run because the browser binary download failed in this environment. Live R2 upload/playback and real account configuration remain to be verified after deployment.

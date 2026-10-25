@@ -59,7 +59,9 @@ export type ModerationPost = {
   post_type:
     | "youtube"
     | "text"
-    | "image";
+    | "image"
+    | "upload_video";
+  media_asset_id?: string | null;
   title: string | null;
   body: string | null;
   youtube_url:
@@ -118,7 +120,9 @@ export type RejectedPost = {
   post_type:
     | "youtube"
     | "text"
-    | "image";
+    | "image"
+    | "upload_video";
+  media_asset_id?: string | null;
 
   title:
     string | null;

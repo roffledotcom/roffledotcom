@@ -1,3 +1,4 @@
+import UploadedMedia from "../posts/UploadedMedia";
 import {
   useEffect,
   useState,
@@ -250,6 +251,7 @@ export default function ModerationQueue({
                     </p>
                   )}
 
+                  {post.media_asset_id && <UploadedMedia postId={post.id} video={post.post_type === "upload_video"} title={post.title || "Uploaded media"} />}
                   {post.image_url && (
                     <img
                       className="moderation-image"

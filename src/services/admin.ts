@@ -94,6 +94,7 @@ export async function getModerationQueue() {
         body,
         youtube_url,
         image_url,
+        media_asset_id,
         created_at,
         moderation_status,
         profiles!posts_user_id_fkey (
@@ -310,6 +311,7 @@ export async function getRejectedPosts() {
         body,
         youtube_url,
         image_url,
+        media_asset_id,
         created_at,
         moderated_at,
         moderation_note,
