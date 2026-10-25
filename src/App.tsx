@@ -17,6 +17,8 @@ import PasswordAuthForm from "./components/auth/PasswordAuthForm";
 
 import "./AppV2.css";
 
+const CommunityPrototype = lazy(() => import("./prototype/Prototype"));
+
 const AppV2 = lazy(() => import("./AppV2"));
 
 const Admin = lazy(
@@ -721,6 +723,10 @@ function App() {
   const path =
     window.location.pathname
       .toLowerCase();
+
+  if (path === "/prototype" || path.startsWith("/prototype/")) {
+    return <Suspense fallback={<PrototypeLoading />}><CommunityPrototype /></Suspense>;
+  }
 
   if (
     path === "/login" ||
