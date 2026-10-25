@@ -63,7 +63,7 @@ div > span {
   color:
     #ff5a1f;
 
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 900;
 
   letter-spacing:
@@ -89,7 +89,7 @@ div > span {
   color:
     var(--text-soft);
 
-  font-size: 11px;
+  font-size: 16px;
 }
 
 
@@ -242,7 +242,7 @@ div > span {
   color:
     #ff5a1f;
 
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 900;
 
   letter-spacing:
@@ -279,7 +279,7 @@ div > span {
   color:
     var(--text-soft);
 
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -295,7 +295,7 @@ div > span {
   color:
     var(--text-muted);
 
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -331,7 +331,7 @@ div > span {
   color:
     var(--text-soft);
 
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 800;
 
   text-decoration:
@@ -374,7 +374,7 @@ div > span {
 
 .blog-article-hero >
 div > span {
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 950;
 
   letter-spacing:
@@ -410,13 +410,13 @@ div > span {
   margin:
     0 0 18px;
 
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
 
 .blog-article-hero time {
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 800;
 
   opacity: 0.75;
@@ -453,7 +453,7 @@ div > span {
 
   color: #333;
 
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.82;
 
   white-space:
@@ -487,7 +487,7 @@ div > span {
   color:
     var(--text-muted);
 
-  font-size: 10px;
+  font-size: 14px;
 }
 
 
@@ -517,7 +517,7 @@ div > span {
   color:
     #a83925;
 
-  font-size: 9px;
+  font-size: 14px;
 }
 
 

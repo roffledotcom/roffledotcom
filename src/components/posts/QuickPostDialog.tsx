@@ -918,7 +918,7 @@ export default function QuickPostDialog({
         </header>
 
         <div className="quick-post-tabs">
-          <button type="button" onClick={() => setR2Open(true)}>Upload MP4 / WebM / WebP</button>
+          <button type="button" onClick={() => setR2Open(true)}>MP4 / WebM / WebP</button>
           <button
             type="button"
             className={

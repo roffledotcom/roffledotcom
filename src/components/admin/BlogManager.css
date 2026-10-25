@@ -44,7 +44,7 @@ button {
 
   color: #fff;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 850;
 }
 
@@ -132,7 +132,7 @@ button.selected {
 .blog-admin-list strong {
   overflow: hidden;
 
-  font-size: 14px;
+  font-size: 16px;
 
   text-overflow:
     ellipsis;
@@ -147,7 +147,7 @@ button.selected {
 
   color: #999;
 
-  font-size: 14px;
+  font-size: 16px;
 }
 
 
@@ -157,7 +157,7 @@ button.selected {
 
   color: #999;
 
-  font-size: 14px;
+  font-size: 16px;
 }
 
 
@@ -185,7 +185,7 @@ label > span {
 
   color: #555;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 850;
 }
 
@@ -194,7 +194,7 @@ label > span {
 label small {
   color: #aaa;
 
-  font-size: 14px;
+  font-size: 16px;
 }
 
 
@@ -218,7 +218,7 @@ label small {
 
   font: inherit;
 
-  font-size: 14px;
+  font-size: 16px;
 
   outline: 0;
 }
@@ -287,7 +287,7 @@ label small {
 
   color: #555;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
 }
 
@@ -320,7 +320,7 @@ label small {
 
   border-radius: 8px;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 850;
 }
 

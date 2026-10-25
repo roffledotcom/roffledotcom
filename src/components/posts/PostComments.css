@@ -41,7 +41,7 @@
 
 
 .post-comments-heading strong {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 850;
 
   letter-spacing:
@@ -67,7 +67,7 @@
   color:
     var(--accent);
 
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 850;
 
   text-align: center;
@@ -123,7 +123,7 @@
 
   color: #fff;
 
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 850;
 }
 
@@ -139,7 +139,7 @@
 .post-comment-meta strong {
   color: #222;
 
-  font-size: 10px;
+  font-size: 14px;
 }
 
 
@@ -147,7 +147,7 @@
   color:
     var(--text-muted);
 
-  font-size: 8px;
+  font-size: 14px;
 }
 
 
@@ -157,7 +157,7 @@
 
   color: #555;
 
-  font-size: 11px;
+  font-size: 16px;
   line-height: 1.5;
 
   white-space:
@@ -203,7 +203,7 @@
 
   color: #999;
 
-  font-size: 10px;
+  font-size: 14px;
 
   text-align: center;
 }
@@ -233,7 +233,7 @@
   color:
     #a83e2b;
 
-  font-size: 10px;
+  font-size: 14px;
 }
 
 
@@ -272,7 +272,7 @@
   font:
     inherit;
 
-  font-size: 11px;
+  font-size: 16px;
   line-height: 1.45;
 
   outline: 0;
@@ -311,7 +311,7 @@
 .post-comment-form > div > span {
   color: #aaa;
 
-  font-size: 8px;
+  font-size: 14px;
 }
 
 
@@ -337,7 +337,7 @@
 
   color: #fff;
 
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 800;
 }
 
@@ -366,7 +366,7 @@
   color:
     var(--accent);
 
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 800;
 }
 
@@ -413,7 +413,7 @@
   background:
     transparent;
 
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 750;
 }
 
@@ -535,7 +535,7 @@
 
   color: #fff;
 
-  font-size: 7px;
+  font-size: 14px;
   font-weight: 900;
 }
 
@@ -606,7 +606,7 @@
 
   color: #fff;
 
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 750;
 }
 
@@ -633,7 +633,7 @@
 .post-comment-form-footer > div > span {
   color: #aaa;
 
-  font-size: 8px;
+  font-size: 14px;
 }
 
 
@@ -660,7 +660,7 @@
   color:
     var(--accent) !important;
 
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 800;
 }
 
@@ -687,7 +687,7 @@
 
   color: #fff;
 
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 800;
 }
 

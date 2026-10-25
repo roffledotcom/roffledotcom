@@ -256,7 +256,7 @@ function LoginPage() {
 
           .roffle-auth-browse {
             color: #b8b8b4;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             transition: color 140ms ease;
           }
@@ -286,7 +286,7 @@ function LoginPage() {
             align-items: center;
             gap: 7px;
             color: var(--accent);
-            font-size: 10px;
+            font-size: 14px;
             font-weight: 900;
             letter-spacing: 0.15em;
             text-transform: uppercase;
@@ -306,7 +306,7 @@ function LoginPage() {
             max-width: 500px;
             margin: 25px 0 0;
             color: var(--text-soft);
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.7;
           }
 
@@ -316,7 +316,7 @@ function LoginPage() {
             align-items: center;
             gap: 8px;
             color: var(--text-muted);
-            font-size: 11px;
+            font-size: 16px;
             font-weight: 650;
           }
 
@@ -360,7 +360,7 @@ function LoginPage() {
           .roffle-login-card > p {
             margin: 9px 0 25px;
             color: var(--text-soft);
-            font-size: 12px;
+            font-size: 16px;
             line-height: 1.6;
           }
 
@@ -377,7 +377,7 @@ function LoginPage() {
 
             border-radius: 12px;
 
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 800;
 
             transition:
@@ -450,7 +450,7 @@ function LoginPage() {
             align-items: center;
             gap: 12px;
             color: #aaa;
-            font-size: 9px;
+            font-size: 14px;
             font-weight: 800;
             letter-spacing: 0.08em;
             text-transform: uppercase;
@@ -476,7 +476,7 @@ function LoginPage() {
             background: var(--surface-soft);
             color: #282828;
             padding: 0 15px;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 750;
           }
 
@@ -492,7 +492,7 @@ function LoginPage() {
             border-radius: 10px;
             background: #fff3ef;
             color: #b23820;
-            font-size: 11px;
+            font-size: 16px;
             line-height: 1.45;
           }
 
@@ -502,7 +502,7 @@ function LoginPage() {
             align-items: flex-start;
             gap: 8px;
             color: #999994;
-            font-size: 10px;
+            font-size: 14px;
             line-height: 1.5;
           }
 
@@ -517,7 +517,7 @@ function LoginPage() {
             place-items: center;
             background: #0d0d0e;
             color: #8a8a8f;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
           }
 
@@ -553,7 +553,7 @@ function LoginPage() {
             }
 
             .roffle-auth-browse {
-              font-size: 11px;
+              font-size: 16px;
             }
 
             .roffle-auth-intro h1 {
@@ -561,7 +561,7 @@ function LoginPage() {
             }
 
             .roffle-auth-intro p {
-              font-size: 13px;
+              font-size: 16px;
             }
 
             .roffle-login-card {

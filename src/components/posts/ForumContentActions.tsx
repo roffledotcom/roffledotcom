@@ -1,3 +1,5 @@
+import { createPortal } from "react-dom";
+import { Pencil, Flag, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 export default function ForumContentActions({
@@ -10,6 +12,8 @@ export default function ForumContentActions({
   onChanged,
   includeDelete = false,
   allowEdit = true,
+  panelId,
+  onDelete,
 }: {
   kind: "thread" | "reply";
   id: string;
@@ -20,6 +24,8 @@ export default function ForumContentActions({
   onChanged: () => void;
   includeDelete?: boolean;
   allowEdit?: boolean;
+  panelId?: string;
+  onDelete?: () => void;
 }) {
   const [mode, setMode] = useState<"edit" | "flag" | null>(null),
     [draft, setDraft] = useState(body || ""),
@@ -68,39 +74,7 @@ export default function ForumContentActions({
       setBusy(false);
     }
   }
-  return (
-    <div className="forum-inline-actions">
-      {allowEdit && role === "admin" && (
-        <button
-          type="button"
-          disabled={busy}
-          onClick={() => {
-            setDraft(body || "");
-            setHeading(title || "");
-            setMode(mode === "edit" ? null : "edit");
-          }}
-        >
-          Edit
-        </button>
-      )}
-      {includeDelete && (role === "admin" || role === "moderator") && (
-        <button
-          type="button"
-          disabled={busy}
-          onClick={() => void run("delete")}
-        >
-          Delete
-        </button>
-      )}
-      {loggedIn && (
-        <button
-          type="button"
-          disabled={busy}
-          onClick={() => setMode(mode === "flag" ? null : "flag")}
-        >
-          Flag for review
-        </button>
-      )}
+  const panelContent = <div className="forum-action-panel">
       {mode && (
         <form
           onSubmit={(e) => {
@@ -155,6 +129,43 @@ export default function ForumContentActions({
         </form>
       )}
       {message && <p role="status">{message}</p>}
+  </div>;
+  return (
+    <div className="forum-inline-actions">
+      {allowEdit && role === "admin" && (
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => {
+            setDraft(body || "");
+            setHeading(title || "");
+            setMode(mode === "edit" ? null : "edit");
+          }}
+        >
+          <Pencil size={13} aria-hidden="true" /> Edit
+        </button>
+      )}
+      {includeDelete && (role === "admin" || role === "moderator") && (
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => onDelete ? onDelete() : void run("delete")}
+        >
+          <Trash2 size={13} aria-hidden="true" /> Delete
+        </button>
+      )}
+      {loggedIn && (
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => setMode(mode === "flag" ? null : "flag")}
+        >
+          <Flag size={13} aria-hidden="true" /> Flag for review
+        </button>
+      )}
+      {panelId && document.getElementById(panelId)
+        ? createPortal(panelContent, document.getElementById(panelId)!)
+        : panelContent}
     </div>
   );
 }

@@ -1,0 +1,16 @@
+ROFFLE readability and media composer update
+
+Based on roffle(20261025-070145).zip.
+
+- Site-wide small labels, metadata and buttons raised to at least 14px.
+- Regular text and inputs raised to 16px; forum titles/descriptions and thread text have a clear larger hierarchy.
+- New post dialog widened from 610px to 800px, with a scrollable form and responsive two-column tabs on phones.
+- MP4 / WebM / WebP tab renamed (removed Upload).
+- Media form restyled with orange actions, custom Choose file button, drag/drop target, file details/preview, and progress bar.
+- Forum moderation/admin controls styled to match.
+
+Copy the updated source into your project and restart your dev server. Commit and push to deploy. No new dependencies, SQL migration, or environment changes are required for this styling update. Do not rerun the previous migration.
+
+Private .env files, .vercel links, node_modules and compiled dist are deliberately not included. Preserve your own local configuration.
+
+Production build and four existing database/API tests passed; lint passed with warnings. Font audit found no explicit font-size declarations below 14px. Browser visual verification was not available here.

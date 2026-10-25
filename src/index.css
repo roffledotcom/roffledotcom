@@ -20,3 +20,10 @@ body {
 #root {
   min-height: 100vh;
 }
+
+/* Shared readable defaults. Component labels use at least 14px. */
+html {font-size:16px;}
+body {font-size:16px;line-height:1.5;}
+button,input,textarea,select {font-family:inherit;}
+input,textarea,select {font-size:16px;}
+:focus-visible {outline:3px solid #d84412;outline-offset:3px;}

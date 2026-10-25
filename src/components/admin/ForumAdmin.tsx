@@ -26,6 +26,7 @@ type Report = {
   title_snapshot: string | null;
   created_at: string;
   reporter_id: string;
+  reporter_label?: string;
 };
 const blank = {
   id: "",
@@ -68,7 +69,17 @@ export default function ForumAdmin({
           .eq("status", "open")
           .order("created_at", { ascending: false });
         if (r.error) throw r.error;
-        setReports(r.data || []);
+        const rows: Report[] = r.data || [];
+        const ids = [...new Set(rows.map((report) => report.reporter_id).filter(Boolean))];
+        const names = new Map<string, string>();
+        if (ids.length) {
+          const profiles = await supabase.from("profiles").select("id, username, display_name").in("id", ids);
+          if (profiles.error) throw profiles.error;
+          for (const profile of profiles.data || []) {
+            names.set(profile.id, profile.username ? `@${profile.username}` : profile.display_name || "ROFFLE member");
+          }
+        }
+        setReports(rows.map((report) => ({ ...report, reporter_label: names.get(report.reporter_id) || "Unavailable account" })));
       }
     } catch (e) {
       setMessage((e as Error).message);
@@ -97,7 +108,9 @@ export default function ForumAdmin({
   if (settingsOnly && role !== "admin") return <p>Admin access required.</p>;
   return (
     <section className="forum-admin">
+      <div className="admin-section-heading"><span className="admin-eyebrow">{settingsOnly ? "COMMUNITY SETTINGS" : "COMMUNITY MODERATION"}</span>
       <h1>{settingsOnly ? "Forum settings" : "Flagged forum posts"}</h1>
+      <p>{settingsOnly ? "Shape the spaces where ROFFLE talks." : "A little context before you make the call."}</p></div>
       {message && <p role="status">{message}</p>}
       {loading && <p>Loading…</p>}
       {settingsOnly ? (
@@ -272,7 +285,7 @@ export default function ForumAdmin({
         </>
       ) : (
         <>
-          {!loading && !reports.length && <p>No open forum flags.</p>}
+          {!loading && !reports.length && <div className="admin-empty"><strong>All clear.</strong><p>No open forum reports. Enjoy the peace while it lasts.</p></div>}
           {reports.map((r) => (
             <article className="forum-report-card" key={r.id}>
               <h2>{r.title_snapshot || "Forum reply"}</h2>
@@ -283,9 +296,9 @@ export default function ForumAdmin({
                 <strong>Reported content:</strong> {r.content_snapshot}
               </p>
               <p>
-                <strong>Reason:</strong> {r.reason}
+                <strong>Reason for review:</strong> {r.reason}
               </p>
-              <p>Reporter: {r.reporter_id}</p>
+              <p className="forum-reporter"><strong>Reported by</strong> {r.reporter_label}</p>
               {r.thread_id ? (
                 <>
                   <a href={"/forum/t/" + r.thread_id}>

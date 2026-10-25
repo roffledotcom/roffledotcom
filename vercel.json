@@ -1,7 +1,25 @@
 {
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/api/.*", "status": 404 },
-    { "src": "/.*", "dest": "/index.html" }
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/forum/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/signin",
+      "destination": "/index.html"
+    }
   ]
 }

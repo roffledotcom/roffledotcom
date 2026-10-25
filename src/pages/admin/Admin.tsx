@@ -1,3 +1,4 @@
+import AdminNavigation from "../../components/admin/AdminNavigation";
 import ForumAdmin from "../../components/admin/ForumAdmin";
 import {
   useEffect,
@@ -5,13 +6,8 @@ import {
 } from "react";
 
 import {
-  ArchiveX,
   ArrowLeft,
-  BookOpen,
-  FileClock,
   ShieldCheck,
-  Tag,
-  Users,
 } from "lucide-react";
 
 import AdminUsers from "../../components/admin/AdminUsers";
@@ -40,7 +36,7 @@ import "./Admin.css";
    ========================================================== */
 
 
-type Tab =
+export type Tab =
   | "dashboard"
   | "moderation"
   | "rejected"
@@ -250,153 +246,13 @@ export default function Admin() {
       </header>
 
       <div className="admin-shell">
-        <aside className="admin-nav">
-          <button
-            className={
-              tab ===
-                "dashboard"
-                ? "active"
-                : ""
-            }
-            onClick={() => {
-              setTab(
-                "dashboard"
-              );
-            }}
-          >
-            <ShieldCheck
-              size={16}
-            />
+        <AdminNavigation tab={tab} onSelect={setTab} role={access.role} stats={stats} />
 
-            Dashboard
-          </button>
-
-          <button
-            className={
-              tab ===
-                "moderation"
-                ? "active"
-                : ""
-            }
-            onClick={() => {
-              setTab(
-                "moderation"
-              );
-            }}
-          >
-            <FileClock
-              size={16}
-            />
-
-            Moderation
-
-            {stats &&
-              stats.pending_posts >
-                0 && (
-              <span className="admin-nav-count">
-                {stats.pending_posts}
-              </span>
-            )}
-          </button>
-
-          <button
-            className={
-              tab ===
-                "rejected"
-                ? "active"
-                : ""
-            }
-            onClick={() => {
-              setTab(
-                "rejected"
-              );
-            }}
-          >
-            <ArchiveX
-              size={16}
-            />
-
-            Rejected
-
-            {stats &&
-              stats.rejected_posts >
-                0 && (
-              <span className="admin-nav-count rejected">
-                {stats.rejected_posts}
-              </span>
-            )}
-          </button>
-
-          <button
-            className={
-              tab ===
-                "taxonomy"
-                ? "active"
-                : ""
-            }
-            onClick={() => {
-              setTab(
-                "taxonomy"
-              );
-            }}
-          >
-            <Tag
-              size={16}
-            />
-
-            Categories & Tags
-          </button>
-
-          {access.role ===
-            "admin" && (
-            <button
-              className={
-                tab ===
-                  "blog"
-                  ? "active"
-                  : ""
-              }
-              onClick={() => {
-                setTab(
-                  "blog"
-                );
-              }}
-            >
-              <BookOpen
-                size={16}
-              />
-
-              Blog
-            </button>
-          )}
-
-          {access.role ===
-            "admin" && (
-            <button
-              className={
-                tab ===
-                  "users"
-                  ? "active"
-                  : ""
-              }
-              onClick={() => {
-                setTab(
-                  "users"
-                );
-              }}
-            >
-              <Users
-                size={16}
-              />
-
-              Users
-            </button>
-          )}
-          <button className={tab === "forum-flags" ? "active" : ""} onClick={() => setTab("forum-flags")}>Flagged forum posts</button>
-          {access.role === "admin" && <button className={tab === "forum-settings" ? "active" : ""} onClick={() => setTab("forum-settings")}>Forum settings</button>}
-        </aside>
-
-        <main className="admin-content">
+        <main className="admin-content" id="admin-main">
+          <div className="admin-workspace-heading">
+            <div><span className="admin-eyebrow">ROFFLE CONTROL ROOM</span><p>Keep the good stuff coming.</p></div>
+            <span className="admin-role-badge"><ShieldCheck size={16} />{access.role}</span>
+          </div>
           {tab === "forum-flags" && <ForumAdmin role={access.role} />}
           {tab === "forum-settings" && access.role === "admin" && <ForumAdmin role={access.role} settingsOnly />}
           {error && (
@@ -410,7 +266,7 @@ export default function Admin() {
             <>
               <div className="admin-page-title">
                 <span className="admin-eyebrow">
-                  ROFFLE CONTROL ROOM
+                  AT A GLANCE
                 </span>
 
                 <h1>
@@ -464,6 +320,11 @@ export default function Admin() {
                 </div>
               </div>
 
+              <div className="admin-quick-actions">
+                <button onClick={() => setTab("moderation")}><strong>Review the queue</strong><span>Approve posts ready for their moment.</span></button>
+                <button onClick={() => setTab("forum-flags")}><strong>Check forum flags</strong><span>Review reports and keep conversations on track.</span></button>
+                {access.role === "admin" && <button onClick={() => setTab("forum-settings")}><strong>Manage the forums</strong><span>Categories, descriptions and posting controls.</span></button>}
+              </div>
               <div className="admin-dashboard-queue">
                 <ModerationQueue
                   limit={5}

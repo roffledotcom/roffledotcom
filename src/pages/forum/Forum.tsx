@@ -1290,24 +1290,10 @@ function ForumPost({
             )}
           </time>
 
-          {canDelete && (
-            <button
-              className="forum-delete-button"
-              type="button"
-              onClick={
-                onDelete
-              }
-            >
-              <Trash2
-                size={11}
-              />
-
-              Delete
-            </button>
-          )}
+          <ForumContentActions kind={contentKind} id={contentId} title={threadTitle} body={body} role={accessRole} loggedIn={loggedIn} onChanged={onChanged} includeDelete={canDelete} onDelete={onDelete} panelId={`forum-action-panel-${contentId}`} />
         </header>
 
-        <ForumContentActions kind={contentKind} id={contentId} title={threadTitle} body={body} role={accessRole} loggedIn={loggedIn} onChanged={onChanged} />
+        <div id={`forum-action-panel-${contentId}`} />
         {body && (
           <div className="forum-post-body">
             {body}

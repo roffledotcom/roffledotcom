@@ -1,0 +1,30 @@
+ROFFLE ADMIN REFRESH
+
+Install
+Extract this source ZIP over the existing project. Keep your existing .env.local
+and Vercel project link. No database migration or new dependency is required.
+Run npm ci if needed, then npm run build before pushing your normal deployment.
+This ZIP excludes credentials, generated dist, node_modules, and Git metadata.
+
+What changed
+- Branded admin workspace, navigation, statistics and dashboard shortcuts.
+- Consistent cards, tables, fields, buttons, empty states and forum report cards.
+- Drag the left menu handles to reorder; an orange insertion line marks the drop.
+- Use Reorder for up/down buttons on touch devices, or focus a handle and use
+  Alt+Up / Alt+Down. Reset menu order restores the default.
+- Order is saved in this browser, not synced between accounts or devices.
+- Existing admin/moderator access restrictions still apply.
+- Forum reports display @username, then display name, then Unavailable account.
+- Shared native-control styling covers posting, editing, comments, auth, forums,
+  moderation and settings, including native file pickers and focus/disabled states.
+- Existing forum header Edit / Delete / Flag text actions remain in place.
+- R2_CORS.json includes localhost:3000 as well as localhost:5173. Apply this to
+  the Cloudflare bucket if you resume local uploads tomorrow.
+
+Verification
+Production build passed. Six tests passed, including forum permissions, media
+policy/API and menu-order recovery/insertion. Lint completed without errors;
+existing React warnings remain. Browser installation failed in this environment,
+so a visual browser review was not completed. Live Supabase/R2 uploads were not
+performed. The local upload configuration issue still requires local secrets
+or testing the deployed project with its Production environment variables.
