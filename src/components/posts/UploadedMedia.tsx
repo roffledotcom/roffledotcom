@@ -12,11 +12,12 @@ export default function UploadedMedia({
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [requested, setRequested] = useState(!video);
+  const [retry, setRetry] = useState(0);
   useEffect(() => {
-    if (!requested) return;
     let live = true;
     setLoading(true);
+    setError("");
+    setUrl("");
     void (async () => {
       try {
         const { data } = await supabase.auth.getSession();
@@ -41,7 +42,7 @@ export default function UploadedMedia({
     return () => {
       live = false;
     };
-  }, [postId, requested]);
+  }, [postId, retry]);
   if (error)
     return (
       <div role="alert">
@@ -50,23 +51,12 @@ export default function UploadedMedia({
           type="button"
           onClick={() => {
             setError("");
-            setRequested(false);
-            setTimeout(() => setRequested(true), 0);
+            setRetry((attempt) => attempt + 1);
           }}
         >
           Retry
         </button>
       </div>
-    );
-  if (!requested)
-    return (
-      <button
-        type="button"
-        className="r2-play"
-        onClick={() => setRequested(true)}
-      >
-        ▶ Play video
-      </button>
     );
   if (loading || !url) return <p role="status">Loading media…</p>;
   return video ? (
@@ -74,8 +64,7 @@ export default function UploadedMedia({
       src={url}
       controls
       playsInline
-      autoPlay
-      preload="none"
+      preload="metadata"
       aria-label={title}
       style={{ width: "100%", maxHeight: 720, display: "block" }}
       onError={() =>
